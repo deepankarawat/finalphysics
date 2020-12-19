@@ -55,7 +55,7 @@ public class PlayerBehaviour : MonoBehaviour
                 body.velocity = playerCam.transform.forward * speed * Time.deltaTime;
             }
 
-            if (Input.GetAxisRaw("Vertical") < 0.0f) 
+            if (Input.GetAxisRaw("Vertical") < 0.0f)
             {
                 // move Back
                 body.velocity = -playerCam.transform.forward * speed * Time.deltaTime;
@@ -63,15 +63,51 @@ public class PlayerBehaviour : MonoBehaviour
 
             body.velocity = Vector3.Lerp(body.velocity, Vector3.zero, 0.9f);
             body.velocity = new Vector3(body.velocity.x, 0.0f, body.velocity.z); // remove y
-            
+
 
             if (Input.GetAxisRaw("Jump") > 0.0f)
             {
                 body.velocity = transform.up * speed * 0.1f * Time.deltaTime;
+
             }
 
             transform.position += body.velocity;
         }
+        if (body.isFalling)
+        {
+
+            if (Input.GetAxisRaw("Horizontal") > 0.0f)
+            {
+                // move right
+                body.velocity.x = playerCam.transform.right.x * speed * Time.deltaTime;
+                body.velocity.z = playerCam.transform.right.z * speed * Time.deltaTime;
+            }
+
+            if (Input.GetAxisRaw("Horizontal") < 0.0f)
+            {
+                // move left
+                body.velocity.x = -playerCam.transform.right.x * speed * Time.deltaTime;
+                body.velocity.z = -playerCam.transform.right.z * speed * Time.deltaTime;
+            }
+
+            if (Input.GetAxisRaw("Vertical") > 0.0f)
+            {
+                // move forward
+                body.velocity.x = playerCam.transform.forward.x * speed * Time.deltaTime;
+                body.velocity.z = playerCam.transform.forward.z * speed * Time.deltaTime;
+            }
+
+            if (Input.GetAxisRaw("Vertical") < 0.0f)
+            {
+                // move Back
+                body.velocity.x = -playerCam.transform.forward.x * speed * Time.deltaTime;
+                body.velocity.z = -playerCam.transform.forward.z * speed * Time.deltaTime;
+            }
+
+            body.velocity.x = Mathf.Lerp(body.velocity.x, 0, 0.9f);
+            body.velocity.z = Mathf.Lerp(body.velocity.z, 0, 0.9f);
+        }
+
     }
 
 

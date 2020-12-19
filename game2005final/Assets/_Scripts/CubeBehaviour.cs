@@ -8,12 +8,19 @@ using Color = UnityEngine.Color;
 public class Contact : IEquatable<Contact>
 {
     public CubeBehaviour cube;
+    public BulletBehaviour bullet;
     public Vector3 face;
     public float penetration;
 
     public Contact(CubeBehaviour cube)
     {
         this.cube = cube;
+        face = Vector3.zero;
+        penetration = 0.0f;
+    }
+    public Contact(BulletBehaviour bullet)
+    {
+        this.bullet = bullet;
         face = Vector3.zero;
         penetration = 0.0f;
     }
